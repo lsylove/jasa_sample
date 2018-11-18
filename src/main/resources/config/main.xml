@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  A JASA implementation of the model described in the following paper:
+		Iori, G., Chiarella, C., November 2002.
+		A Simulation Analysis of the Microstructure of Double Auction Markets.
+		Quantitative Finance 2, 346-353.
+		http://ssrn.com/abstract=841608
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="model.xml"/>
+    <import resource="reports.xml" />
+
+    <bean id="simulationController"
+          class="net.sourceforge.jabm.SpringSimulationController"
+          scope="singleton">
+
+        <property name="simulationBeanName">
+            <idref bean="marketSimulation"/>
+        </property>
+
+        <property name="numSimulations" value="10"/>
+
+        <property name="reports">
+            <list>
+                <ref bean="gbmPriceProcess" />
+                <ref bean="gbmPriceTimeSeriesReport" />
+                <ref bean="priceTimeSeriesChart" />
+                <ref bean="equilibriumPriceTimeSeriesChart" />
+                <ref bean="equilibriumPriceTimeSeriesReport"/>
+                <ref bean="equilibriumPriceReportVariables"/>
+                <ref bean="equilibriumPriceUpdater"/>
+                <ref bean="equilibriumPriceCSVReport"/>
+                <ref bean="currentPriceTimeSeriesReport" />
+                <ref bean="currentPriceCSVReport"/>
+                <ref bean="currentPriceReportVariables" />
+                <ref bean="spreadTimeSeriesReport" />
+                <ref bean="spreadReportVariables" />
+                <ref bean="reportedSupplyAndDemandGraph"/>
+                <ref bean="auctionStateSupplyAndDemandGraph"/>
+                <ref bean="orderBookView"/>
+            </list>
+        </property>
+
+        <property name="modelDescription"
+                  value="Iori and Chiarella - A Simulation analysis of a the microstructure of double auction markets"/>
+
+    </bean>
+
+    <bean id="fileNamePrefix" class="net.sourceforge.jabm.util.MutableStringWrapper"
+          scope="singleton">
+        <constructor-arg value="data/" />
+    </bean>
+
+</beans>
